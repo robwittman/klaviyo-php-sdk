@@ -61,16 +61,14 @@ class Klaviyo
 
     protected function initDefaultClient()
     {
-        $client = new Client();
+        $client = new Client(array(
+            'base_uri' => $this->apiUrl
+        ));
         $this->client = $client;
     }
 
     protected function getApiUrl($path)
     {
-        return sprintf(
-            "%s/api/v1/%s",
-            $this->apiUrl,
-            $path
-        );
+        return "api/v1/{$path}";
     }
 }
