@@ -13,6 +13,11 @@ class Klaviyo
 
     protected $apiKey;
 
+    public function __construct($apiKey = null)
+    {
+        $this->apiKey = $apiKey;
+    }
+
     public function setClient(Client $client)
     {
         $this->client = $client;
