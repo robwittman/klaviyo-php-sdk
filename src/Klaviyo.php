@@ -53,7 +53,7 @@ class Klaviyo
         } else {
             $args['json'] = $params;
         }
-        $request = new Request($method, $requestUrl);
+        $request = new Request($requestUrl, $method);
         $res = $this->client->send($request, $args);
         $body = json_decode($res->getBody()->getContents(), true);
         return $body;
