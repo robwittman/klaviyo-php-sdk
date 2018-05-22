@@ -4,26 +4,38 @@ namespace Klaviyo;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Psr7\Request;
+use Psr\Http\Message\RequestInterface;
 
 class Klaviyo
 {
-    protected $apiUrl = 'https://a.klaviyo.com';
+    /**
+     * @var Config
+     */
+    protected $config;
 
+    /**
+     * @var Client
+     */
     protected $client;
 
-    protected $apiKey;
-
-    public function __construct($apiKey = null)
+    public function __construct(Config $config)
     {
-        $this->apiKey = $apiKey;
+        $this->config = $config;
     }
 
-    public function setClient(Client $client)
+    /**
+     * @param Client $client
+     * @return Klaviyo
+     */
+    public function setClient(Client $client): self
     {
         $this->client = $client;
         return $this;
     }
 
+    /**
+     * @return Client
+     */
     public function getClient()
     {
         if (is_null($this->client)) {
@@ -32,42 +44,64 @@ class Klaviyo
         return $this->client;
     }
 
-    public function setApiKey($apiKey)
+    /**
+     * @return Config
+     */
+    public function getConfig()
     {
-        $this->apiKey = $apiKey;
+        return $this->config;
+    }
+
+    /**
+     * @param Config $config
+     * @return $this
+     */
+    public function setConfig(Config $config)
+    {
+        $this->config = $config;
         return $this;
     }
 
-    public function getApiKey()
+    /**
+     * @return string
+     */
+    protected function getApiKey()
     {
-        return $this->apiKey;
+        return $this->getConfig()->getApiKey();
     }
 
-    public function request($path, $method = 'GET', array $params = array())
+    /**
+     * @param RequestInterface $request
+     * @param array $params
+     * @return mixed
+     */
+    public function send(RequestInterface $request, array $params = array())
     {
         $params['api_key'] = $this->getApiKey();
-        $requestUrl = $this->getApiUrl($path);
-        $args = array();
-        if ($method == 'GET') {
+        $args = [];
+        if ($request->getMethod() === 'GET') {
             $args['query'] = $params;
         } else {
             $args['json'] = $params;
         }
-        $request = new Request($method, $requestUrl);
+
         $res = $this->getClient()->send($request, $args);
         $body = json_decode($res->getBody()->getContents(), true);
         return $body;
     }
 
-    protected function initDefaultClient()
+    /**
+     * @return void
+     */
+    protected function initDefaultClient(): void
     {
         $client = new Client(array(
-            'base_uri' => $this->apiUrl
+            'base_uri' => $this->getConfig()->getApiUrl()
         ));
         $this->client = $client;
     }
 
-    protected function getApiUrl($path)
+    public function getApiUrl($path): string
     {
         return "api/v1/{$path}";
     }
