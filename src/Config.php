@@ -7,7 +7,7 @@ class Config
     /**
      * @var string
      */
-    protected $apiUrl;
+    protected $apiUrl = 'https://a.klaviyo.com';
 
     /**
      * @var string
@@ -27,7 +27,7 @@ class Config
     /**
      * @return string
      */
-    public function getApiUrl()
+    public function getApiUrl(): string
     {
         return $this->apiUrl;
     }
