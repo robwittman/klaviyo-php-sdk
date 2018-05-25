@@ -27,7 +27,7 @@ class Config
     /**
      * @return string
      */
-    public function getApiUrl(): string
+    public function getApiUrl()
     {
         return $this->apiUrl;
     }
