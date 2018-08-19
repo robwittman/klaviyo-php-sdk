@@ -75,7 +75,7 @@ class Klaviyo
      * @param array $params
      * @return mixed
      */
-    public function send(RequestInterface $request, array $params = array(), $postType = 'body')
+    public function send(RequestInterface $request, array $params = array(), $postType = 'form_params')
     {
         $params['api_key'] = $this->getApiKey();
         $args = [];
