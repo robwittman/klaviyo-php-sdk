@@ -9,6 +9,7 @@ abstract class Service
      */
     protected $api;
 
+    protected $version = 'v2';
     /**
      * Service constructor.
      * @param Klaviyo $api
@@ -25,6 +26,6 @@ abstract class Service
 
     protected function getApiPathUrl($path): string
     {
-        return "api/v1/{$path}";
+        return "api/{$this->version}/{$path}";
     }
 }

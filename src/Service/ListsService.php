@@ -7,6 +7,8 @@ use Klaviyo\Service;
 
 class ListsService extends Service
 {
+    protected $version = 'v2';
+
     public function getAll(array $params = [])
     {
         $request = new Request('GET', $this->getApiPathUrl('lists'));
