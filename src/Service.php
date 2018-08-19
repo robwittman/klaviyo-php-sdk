@@ -9,7 +9,7 @@ abstract class Service
      */
     protected $api;
 
-    protected $version = 'v2';
+    protected $version = 'v1';
     /**
      * Service constructor.
      * @param Klaviyo $api
