@@ -75,16 +75,15 @@ class Klaviyo
      * @param array $params
      * @return mixed
      */
-    public function send(RequestInterface $request, array $params = array())
+    public function send(RequestInterface $request, array $params = array(), $postType = 'body')
     {
         $params['api_key'] = $this->getApiKey();
         $args = [];
         if ($request->getMethod() === 'GET') {
             $args['query'] = $params;
         } else {
-            $args['json'] = $params;
+            $args[$postType] = $params;
         }
-        error_log(json_encode($args));
 
         $res = $this->getClient()->send($request, $args);
         $body = json_decode($res->getBody()->getContents(), true);
