@@ -85,6 +85,7 @@ class Klaviyo
             $args[$postType] = $params;
         }
 
+        var_dump($args);
         $res = $this->getClient()->send($request, $args);
         $body = json_decode($res->getBody()->getContents(), true);
         return $body;
