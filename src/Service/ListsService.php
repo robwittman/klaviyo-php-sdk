@@ -7,7 +7,7 @@ use Klaviyo\Service;
 
 class ListsService extends Service
 {
-    protected $version = 'v2';
+    protected $version = 'v1';
 
     public function getAll(array $params = [])
     {
