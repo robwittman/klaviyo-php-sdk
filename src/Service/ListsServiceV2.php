@@ -63,13 +63,13 @@ class ListsServiceV2 extends Service
         return $this->getApi()->send($request, 'json');
     }
 
-    public function addMember($listId, array $params)
+    public function addMembers($listId, array $params)
     {
         $request = new Request('POST', $this->getApiPathUrl("list/{$listId}/members"));
         return $this->getApi()->send($request, $params, 'json');
     }
 
-    public function deleteMembed($listId, array $params)
+    public function deleteMembers($listId, array $params)
     {
         $request = new Request('DELETE', $this->getApiPathUrl("list/{$listId}/members"));
         return $this->getApi()->send($request, $params, 'json');
