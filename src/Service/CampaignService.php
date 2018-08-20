@@ -37,10 +37,10 @@ class CampaignService extends Service
         return $this->getApi()->send($request);
     }
 
-    public function schedule($campaignId)
+    public function schedule($campaignId, array $params)
     {
         $request = new Request('POST', $this->getApiPathUrl("campaign/{$campaignId}/schedule"));
-        return $this->getApi()->send($request);
+        return $this->getApi()->send($request, $params);
     }
 
     public function cancel($campaignId)
